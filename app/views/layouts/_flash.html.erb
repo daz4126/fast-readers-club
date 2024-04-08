@@ -1,0 +1,5 @@
+<% flash.each do |type, message| %>
+    <div class="<%= type == "notice" ? "blue"  : type == "alert" ? "red" : "gray" %>-border thick half-width padding margin-vertical margin-auto-horizontal">
+      <%= message %>
+    </div>
+<% end %>

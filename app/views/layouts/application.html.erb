@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tmp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "dragon", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="five column grid dropshadow sticky green">
+    <div>
+      <% if user_signed_in? %> 
+        <div class="pastel green-text bold small-text">Welcome <%= current_user.email %> <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "clear small classic red-text no-margin" %></div> 
+         
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path %> 
+      <% end %>
+      </div>
+      <h1 class="brand-font text-center col-span-3"><a href="/" class="no-underline white-text"><b class="neon glow yellow-text italic">Fast</b> Readers Club</a></h1>
+      
+    </header>
+    <%= render "layouts/flash" %>
+    <main class="container">
+    <%= yield %>
+    </main>
+    <footer class="classic green container">
+    <p class="text-center white-text"><small>Another Beautifully Unconventional app made with 💜 by <%= link_to "DAZ", "https://daz4126.dev" %></small></p>
+    </footer>
+  </body>
+</html>

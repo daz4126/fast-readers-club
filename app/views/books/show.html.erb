@@ -1,0 +1,37 @@
+<%= link_to "All books", books_path %>
+<div class="grid">
+  <div>
+  <img alt="<%= @book.title %> cover" src="<%= @book.cover %>">
+  </div>
+  <div>
+  <h1 class="green-text big-text"><%= @book.title %></h1>
+  <p class="italic">by <%= @book.author %></p>
+  <p><%= @book.description %></p>
+  <% if user_signed_in? %>
+  <ul class="no-bullet horizontal-list">
+    <li><%= link_to "Edit", edit_book_path(@book), class: "button" %></li>
+    <li><%= link_to "Delete", book_path(@book), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    }, class: "button" %></li>
+  </ul>
+  <% end %>
+  </div>
+  </div>
+  <div class="half-width margin-auto-horizontal">
+  <div>
+  <% if user_signed_in? && current_user.reviews.select { |review| review.book_id == @book.id }.size < 1 %>
+  <h3 class="h2">Write a review:</h3>
+  <%= render "reviews/form", book: @book %>
+  </div>
+  <% end %>
+  <% if @reviews.length > 0 %>
+  <h2 class="text-center green-text h1">User Reviews</h2>
+
+  <% @reviews.each do |review| %>
+    <%= render 'reviews/review', book: @book, review: review %>
+  <% end %>
+  <% end %>
+  </div>
+  
+  
